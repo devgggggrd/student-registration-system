@@ -1,0 +1,250 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum StudentStatus {
+  ACTIVE
+  SUSPENDED
+  GRADUATED
+  DROPPED_OUT
+}
+
+enum SemesterStatus {
+  UPCOMING
+  OPEN
+  CLOSED
+  FINISHED
+}
+
+enum EnrollmentStatus {
+  REGISTERED
+  DROPPED
+  CANCELLED
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+model User {
+  id           String    @id @default(uuid()) @db.Uuid
+  email        String    @unique @db.VarChar(255)
+  passwordHash String    @map("password_hash") @db.VarChar(255)
+  role         Role
+  phone        String?   @db.VarChar(30)
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  student   Student?
+  teacher   Teacher?
+  auditLogs AuditLog[]
+
+  @@index([role])
+  @@map("users")
+}
+
+model Department {
+  id        String    @id @default(uuid()) @db.Uuid
+  code      String    @unique @db.VarChar(20)
+  name      String    @db.VarChar(255)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  students Student[]
+  teachers Teacher[]
+  courses  Course[]
+
+  @@map("departments")
+}
+
+model Student {
+  id           String        @id @default(uuid()) @db.Uuid
+  userId       String        @unique @map("user_id") @db.Uuid
+  studentCode  String        @unique @map("student_code") @db.VarChar(50)
+  firstName    String        @map("first_name") @db.VarChar(100)
+  lastName     String        @map("last_name") @db.VarChar(100)
+  departmentId String        @map("department_id") @db.Uuid
+  yearLevel    Int           @map("year_level")
+  status       StudentStatus @default(ACTIVE)
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  department  Department   @relation(fields: [departmentId], references: [id], onDelete: Restrict)
+  enrollments Enrollment[]
+
+  @@index([departmentId])
+  @@index([studentCode])
+  @@index([status])
+  @@map("students")
+}
+
+model Teacher {
+  id           String     @id @default(uuid()) @db.Uuid
+  userId       String     @unique @map("user_id") @db.Uuid
+  teacherCode  String     @unique @map("teacher_code") @db.VarChar(50)
+  firstName    String     @map("first_name") @db.VarChar(100)
+  lastName     String     @map("last_name") @db.VarChar(100)
+  departmentId String     @map("department_id") @db.Uuid
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime   @updatedAt @map("updated_at") @db.Timestamptz
+
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  department     Department      @relation(fields: [departmentId], references: [id], onDelete: Restrict)
+  courseSections CourseSection[]
+
+  @@index([departmentId])
+  @@index([teacherCode])
+  @@map("teachers")
+}
+
+model Course {
+  id           String     @id @default(uuid()) @db.Uuid
+  courseCode   String     @unique @map("course_code") @db.VarChar(20)
+  courseName   String     @map("course_name") @db.VarChar(255)
+  credits      Int
+  departmentId String     @map("department_id") @db.Uuid
+  description  String?    @db.Text
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime   @updatedAt @map("updated_at") @db.Timestamptz
+
+  department Department      @relation(fields: [departmentId], references: [id], onDelete: Restrict)
+  sections   CourseSection[]
+  prerequisites  CoursePrerequisite[] @relation("CoursePrerequisites")
+  prerequisiteOf CoursePrerequisite[] @relation("PrerequisiteOf")
+
+  @@index([departmentId])
+  @@index([courseCode])
+  @@map("courses")
+}
+
+model CoursePrerequisite {
+  id                   String   @id @default(uuid()) @db.Uuid
+  courseId             String   @map("course_id") @db.Uuid
+  prerequisiteCourseId String   @map("prerequisite_course_id") @db.Uuid
+  createdAt            DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  course             Course @relation("CoursePrerequisites", fields: [courseId], references: [id], onDelete: Cascade)
+  prerequisiteCourse Course @relation("PrerequisiteOf", fields: [prerequisiteCourseId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, prerequisiteCourseId])
+  @@index([courseId])
+  @@index([prerequisiteCourseId])
+  @@map("course_prerequisites")
+}
+
+model Semester {
+  id                String         @id @default(uuid()) @db.Uuid
+  academicYear      Int            @map("academic_year")
+  semesterNumber    Int            @map("semester_number")
+  registrationStart DateTime       @map("registration_start") @db.Timestamptz
+  registrationEnd   DateTime       @map("registration_end") @db.Timestamptz
+  startDate         DateTime       @map("start_date") @db.Date
+  endDate           DateTime       @map("end_date") @db.Date
+  status            SemesterStatus @default(UPCOMING)
+  createdAt         DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt         DateTime       @updatedAt @map("updated_at") @db.Timestamptz
+
+  sections    CourseSection[]
+  enrollments Enrollment[]
+
+  @@unique([academicYear, semesterNumber])
+  @@index([status])
+  @@map("semesters")
+}
+
+model CourseSection {
+  id            String   @id @default(uuid()) @db.Uuid
+  courseId      String   @map("course_id") @db.Uuid
+  semesterId    String   @map("semester_id") @db.Uuid
+  sectionNumber Int      @map("section_number")
+  teacherId     String   @map("teacher_id") @db.Uuid
+  capacity      Int
+  room          String   @db.VarChar(100)
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  course      Course       @relation(fields: [courseId], references: [id], onDelete: Restrict)
+  semester    Semester     @relation(fields: [semesterId], references: [id], onDelete: Restrict)
+  teacher     Teacher      @relation(fields: [teacherId], references: [id], onDelete: Restrict)
+  schedules   Schedule[]
+  enrollments Enrollment[]
+
+  @@unique([courseId, semesterId, sectionNumber])
+  @@index([courseId])
+  @@index([semesterId])
+  @@index([teacherId])
+  @@map("course_sections")
+}
+
+model Schedule {
+  id              String    @id @default(uuid()) @db.Uuid
+  courseSectionId String    @map("course_section_id") @db.Uuid
+  dayOfWeek       DayOfWeek @map("day_of_week")
+  startTime       String    @map("start_time") @db.VarChar(10)
+  endTime         String    @map("end_time") @db.VarChar(10)
+  room            String    @db.VarChar(100)
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  courseSection CourseSection @relation(fields: [courseSectionId], references: [id], onDelete: Cascade)
+
+  @@index([courseSectionId])
+  @@index([dayOfWeek, startTime, endTime])
+  @@map("schedules")
+}
+
+model Enrollment {
+  id              String           @id @default(uuid()) @db.Uuid
+  studentId       String           @map("student_id") @db.Uuid
+  courseSectionId String           @map("course_section_id") @db.Uuid
+  semesterId      String           @map("semester_id") @db.Uuid
+  status          EnrollmentStatus @default(REGISTERED)
+  registeredAt    DateTime         @default(now()) @map("registered_at") @db.Timestamptz
+  updatedAt       DateTime         @updatedAt @map("updated_at") @db.Timestamptz
+
+  student       Student       @relation(fields: [studentId], references: [id], onDelete: Restrict)
+  courseSection CourseSection @relation(fields: [courseSectionId], references: [id], onDelete: Restrict)
+  semester      Semester      @relation(fields: [semesterId], references: [id], onDelete: Restrict)
+
+  @@unique([studentId, courseSectionId])
+  @@index([studentId])
+  @@index([courseSectionId])
+  @@index([semesterId])
+  @@index([status])
+  @@map("enrollments")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String?  @map("user_id") @db.Uuid
+  action    String   @db.VarChar(100)
+  entity    String   @db.VarChar(100)
+  entityId  String?  @map("entity_id") @db.VarChar(100)
+  details   Json?
+  ipAddress String?  @map("ip_address") @db.VarChar(50)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
