@@ -19,6 +19,7 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { Role } from '@prisma/client';
+import { ClientIp } from '../auth/decorators/client-ip.decorator';
 
 @Controller('student')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -49,7 +50,7 @@ export class StudentsController {
   async enrollCourse(
     @CurrentUser('id') userId: string,
     @Body() dto: EnrollCourseDto,
-    @Ip() ip: string,
+    @ClientIp() ip: string,
   ) {
     return this.studentsService.enrollCourse(userId, dto, ip);
   }
@@ -58,10 +59,11 @@ export class StudentsController {
   async dropCourse(
     @CurrentUser('id') userId: string,
     @Param('id') enrollmentId: string,
-    @Ip() ip: string,
+    @ClientIp() ip: string,
   ) {
     return this.studentsService.dropCourse(userId, enrollmentId, ip);
   }
+
 
   @Get('schedule')
   async getSchedule(@CurrentUser('id') userId: string) {

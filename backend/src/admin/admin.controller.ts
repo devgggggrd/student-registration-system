@@ -23,6 +23,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { ClientIp } from '../auth/decorators/client-ip.decorator';
 import { Role, SemesterStatus } from '@prisma/client';
 
 @Controller('admin')
@@ -51,7 +52,7 @@ export class AdminController {
   async createUser(
     @Body() dto: CreateUserDto,
     @CurrentUser('id') adminUserId: string,
-    @Ip() ip: string,
+    @ClientIp() ip: string,
   ) {
     return this.adminService.createUser(dto, adminUserId, ip);
   }
@@ -61,7 +62,7 @@ export class AdminController {
     @Param('id') userId: string,
     @Body() dto: UpdateUserDto,
     @CurrentUser('id') adminUserId: string,
-    @Ip() ip: string,
+    @ClientIp() ip: string,
   ) {
     return this.adminService.updateUser(userId, dto, adminUserId, ip);
   }

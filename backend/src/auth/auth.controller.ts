@@ -16,6 +16,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { Roles } from './decorators/roles.decorator';
 import { CurrentUser } from './decorators/current-user.decorator';
+import { ClientIp } from './decorators/client-ip.decorator';
 import { Role } from '@prisma/client';
 
 @Controller('auth')
@@ -24,7 +25,7 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  async login(@Body() loginDto: LoginDto, @Ip() ip: string) {
+  async login(@Body() loginDto: LoginDto, @ClientIp() ip: string) {
     return this.authService.login(loginDto, ip);
   }
 
