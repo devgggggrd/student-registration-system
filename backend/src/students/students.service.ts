@@ -8,10 +8,14 @@ import { PrismaService } from '../database/prisma.service';
 import { CourseSearchQueryDto } from './dto/course-search-query.dto';
 import { EnrollCourseDto } from './dto/enroll-course.dto';
 import { EnrollmentStatus, SemesterStatus, StudentStatus } from '@prisma/client';
+import { AuditStreamService } from '../admin/audit-stream.service';
 
 @Injectable()
 export class StudentsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly auditStreamService: AuditStreamService,
+  ) {}
 
   private async getStudentByUserId(userId: string) {
     const student = await this.prisma.student.findUnique({
@@ -431,7 +435,7 @@ export class StudentsService {
 
     // 7. Record Audit Log outside transaction
     try {
-      await this.prisma.auditLog.create({
+      const newLog = await this.prisma.auditLog.create({
         data: {
           userId,
           action: 'REGISTER_COURSE',
@@ -445,6 +449,25 @@ export class StudentsService {
           },
         },
       });
+
+      this.auditStreamService.emit({
+        id: newLog.id,
+        userId: newLog.userId,
+        action: newLog.action,
+        entity: newLog.entity,
+        entityId: newLog.entityId,
+        details: newLog.details,
+        ipAddress: newLog.ipAddress || undefined,
+        createdAt: newLog.createdAt.toISOString(),
+        user: {
+          role: 'STUDENT',
+          student: {
+            firstName: student.firstName,
+            lastName: student.lastName,
+          },
+        },
+      });
+
     } catch {
       // Non-blocking
     }
@@ -491,7 +514,7 @@ export class StudentsService {
 
     // Record Audit Log
     try {
-      await this.prisma.auditLog.create({
+      const newLog = await this.prisma.auditLog.create({
         data: {
           userId,
           action: 'DROP_COURSE',
@@ -504,6 +527,25 @@ export class StudentsService {
           },
         },
       });
+
+      this.auditStreamService.emit({
+        id: newLog.id,
+        userId: newLog.userId,
+        action: newLog.action,
+        entity: newLog.entity,
+        entityId: newLog.entityId,
+        details: newLog.details,
+        ipAddress: newLog.ipAddress || undefined,
+        createdAt: newLog.createdAt.toISOString(),
+        user: {
+          role: 'STUDENT',
+          student: {
+            firstName: student.firstName,
+            lastName: student.lastName,
+          },
+        },
+      });
+
     } catch {
       // Non-blocking
     }

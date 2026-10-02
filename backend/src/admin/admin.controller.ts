@@ -11,7 +11,9 @@ import {
   Ip,
   HttpCode,
   HttpStatus,
+  Sse,
 } from '@nestjs/common';
+import { Observable } from 'rxjs';
 import { AdminService } from './admin.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -177,4 +179,10 @@ export class AdminController {
     const parsedLimit = limit ? parseInt(limit, 10) : 100;
     return this.adminService.getAuditLogs(parsedLimit);
   }
+
+  @Sse('audit-logs/stream')
+  streamAuditLogs(): Observable<any> {
+    return this.adminService.getAuditStream();
+  }
 }
+

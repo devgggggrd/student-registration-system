@@ -6,12 +6,15 @@ import { PrismaService } from '../database/prisma.service';
 import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 
+import { AuditStreamService } from '../admin/audit-stream.service';
+
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly auditStreamService: AuditStreamService,
   ) {}
 
   async login(loginDto: LoginDto, ipAddress?: string) {
@@ -42,9 +45,9 @@ export class AuthService {
 
     const tokens = await this.generateTokens(user.id, user.email, user.role);
 
-    // Record Audit Log
+    // Record Audit Log & Emit to Real-time Stream
     try {
-      await this.prisma.auditLog.create({
+      const newLog = await this.prisma.auditLog.create({
         data: {
           userId: user.id,
           action: 'LOGIN',
@@ -54,9 +57,32 @@ export class AuthService {
           details: { email: user.email, role: user.role },
         },
       });
+
+      this.auditStreamService.emit({
+        id: newLog.id,
+        userId: newLog.userId,
+        action: newLog.action,
+        entity: newLog.entity,
+        entityId: newLog.entityId,
+        details: newLog.details,
+        ipAddress: newLog.ipAddress || undefined,
+        createdAt: newLog.createdAt.toISOString(),
+        user: {
+          email: user.email,
+          role: user.role,
+          student: user.student
+            ? { firstName: user.student.firstName, lastName: user.student.lastName }
+            : null,
+          teacher: user.teacher
+            ? { firstName: user.teacher.firstName, lastName: user.teacher.lastName }
+            : null,
+        },
+      });
+
     } catch {
       // Non-blocking audit log
     }
+
 
     return {
       accessToken: tokens.accessToken,

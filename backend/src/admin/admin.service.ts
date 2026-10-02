@@ -21,13 +21,19 @@ import {
   EnrollmentStatus,
   StudentStatus,
 } from '@prisma/client';
+import { AuditStreamService } from './audit-stream.service';
 
 @Injectable()
 export class AdminService {
   constructor(
     private readonly prisma: PrismaService,
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
+    private readonly auditStreamService: AuditStreamService,
   ) {}
+
+  getAuditStream() {
+    return this.auditStreamService.getStream();
+  }
 
   private async createAuditLog(
     userId: string,
@@ -38,7 +44,7 @@ export class AdminService {
     ip?: string,
   ) {
     try {
-      await this.prisma.auditLog.create({
+      const newLog = await this.prisma.auditLog.create({
         data: {
           userId,
           action,
@@ -47,11 +53,35 @@ export class AdminService {
           details,
           ipAddress: ip,
         },
+        include: {
+          user: {
+            select: {
+              email: true,
+              role: true,
+              student: { select: { firstName: true, lastName: true } },
+              teacher: { select: { firstName: true, lastName: true } },
+            },
+          },
+        },
+      });
+
+
+      this.auditStreamService.emit({
+        id: newLog.id,
+        userId: newLog.userId,
+        action: newLog.action,
+        entity: newLog.entity,
+        entityId: newLog.entityId,
+        details: newLog.details,
+        ipAddress: newLog.ipAddress || undefined,
+        createdAt: newLog.createdAt.toISOString(),
+        user: newLog.user,
       });
     } catch (e) {
       console.error('AuditLog error:', e);
     }
   }
+
 
   // --- 1. Dashboard & Stats ---
   async getDashboardStats() {

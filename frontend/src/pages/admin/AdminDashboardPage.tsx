@@ -19,6 +19,8 @@ import {
 export const AdminDashboardPage: React.FC = () => {
   const [data, setData] = useState<AdminDashboardData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLive, setIsLive] = useState(false);
+
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -33,7 +35,46 @@ export const AdminDashboardPage: React.FC = () => {
       }
     };
     fetchDashboard();
+
+    // SSE Stream
+    const token = localStorage.getItem('accessToken');
+    if (!token) return;
+
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api/v1';
+    let eventSource: EventSource | null = null;
+    try {
+      eventSource = new EventSource(`${API_BASE_URL}/admin/audit-logs/stream?token=${encodeURIComponent(token)}`);
+      eventSource.onopen = () => setIsLive(true);
+      eventSource.onmessage = (event) => {
+        try {
+          const newLog = JSON.parse(event.data);
+          if (newLog && newLog.id) {
+            setData((prev) => {
+              if (!prev) return prev;
+              const exists = prev.recentLogs.some((l) => l.id === newLog.id);
+              if (exists) return prev;
+              return {
+                ...prev,
+                recentLogs: [newLog, ...prev.recentLogs.slice(0, 4)],
+              };
+            });
+            // Background refresh stats
+            adminService.getDashboard().then((res) => setData(res)).catch(() => {});
+          }
+        } catch (e) {
+          console.error('SSE parse error:', e);
+        }
+      };
+      eventSource.onerror = () => setIsLive(false);
+    } catch {
+      setIsLive(false);
+    }
+
+    return () => {
+      if (eventSource) eventSource.close();
+    };
   }, []);
+
 
   if (isLoading) {
     return (
@@ -60,7 +101,14 @@ export const AdminDashboardPage: React.FC = () => {
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>ระบบทำงานปกติ (Online)</span>
             </span>
+            {isLive && (
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 flex items-center gap-1.5 animate-pulse">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                <span>REAL-TIME STREAMING</span>
+              </span>
+            )}
           </div>
+
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
             Admin Control Center
           </h1>
