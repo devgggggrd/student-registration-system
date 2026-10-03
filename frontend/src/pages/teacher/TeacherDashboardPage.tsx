@@ -60,7 +60,7 @@ export const TeacherDashboardPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-purple-800 via-purple-700 to-indigo-800 rounded-2xl p-6 sm:p-8 text-white shadow-xl shadow-purple-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-gradient-to-r from-purple-800 via-purple-700 to-indigo-800 dark:from-purple-950 dark:via-purple-900 dark:to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl shadow-purple-500/10 flex flex-col md:flex-row md:items-center justify-between gap-6 border border-purple-500/20 transition-colors">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-sm">
@@ -73,7 +73,7 @@ export const TeacherDashboardPage: React.FC = () => {
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
             Welcome back, Prof. {teacher.firstName} {teacher.lastName}!
           </h1>
-          <p className="text-purple-100 text-sm mt-1 max-w-xl">
+          <p className="text-purple-100 dark:text-purple-200 text-sm mt-1 max-w-xl">
             {teacher.department.name} • รหัสอาจารย์:{' '}
             <span className="font-mono font-bold text-white">{teacher.teacherCode}</span>
           </p>
@@ -81,16 +81,16 @@ export const TeacherDashboardPage: React.FC = () => {
 
         {/* Current Semester Card */}
         {currentSemester && (
-          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 shrink-0 text-right md:text-right">
+          <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl p-4 shrink-0 text-right md:text-right">
             <div className="flex items-center justify-end gap-1.5 text-xs text-purple-200">
-              <Calendar className="w-4 h-4" />
+              <Calendar className="w-4 h-4" aria-hidden="true" />
               <span>ภาคการศึกษาปัจจุบัน</span>
             </div>
             <p className="text-xl font-bold mt-0.5">
               Semester {currentSemester.semesterNumber}/{currentSemester.academicYear}
             </p>
             <div className="mt-1 flex items-center justify-end gap-1 text-xs text-emerald-300 font-medium">
-              <Sparkles className="w-3.5 h-3.5" />
+              <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
               <span>สถานะ: เปิดรับลงทะเบียน</span>
             </div>
           </div>
@@ -99,58 +99,58 @@ export const TeacherDashboardPage: React.FC = () => {
 
       {/* Metric Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 text-purple-600 flex items-center justify-center shrink-0">
-            <BookOpen className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-950/60 border border-purple-100 dark:border-purple-800 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+            <BookOpen className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               กลุ่มเรียนที่สอน
             </p>
-            <p className="text-2xl font-bold text-slate-900 mt-0.5">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">
               {stats.sectionsCount} <span className="text-xs font-normal text-slate-400">กลุ่ม (Sec)</span>
             </p>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center shrink-0">
-            <Users className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-800 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+            <Users className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               นักศึกษาในความรับผิดชอบ
             </p>
-            <p className="text-2xl font-bold text-slate-900 mt-0.5">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">
               {stats.studentsCount} <span className="text-xs font-normal text-slate-400">คน</span>
             </p>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-            <Award className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-100 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+            <Award className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               ภาระงานสอนรวม
             </p>
-            <p className="text-2xl font-bold text-slate-900 mt-0.5">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">
               {stats.totalCredits} <span className="text-xs font-normal text-slate-400">หน่วยกิต</span>
             </p>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center shrink-0">
-            <Clock className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-100 dark:border-amber-800 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+            <Clock className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               สถานะอาจารย์
             </p>
-            <p className="text-2xl font-bold text-slate-900 mt-0.5">
-              ปฏิบัติการสอน <span className="text-xs font-normal text-emerald-600 font-semibold">(ปกติ)</span>
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">
+              ปฏิบัติการสอน <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">(ปกติ)</span>
             </p>
           </div>
         </div>
@@ -159,45 +159,45 @@ export const TeacherDashboardPage: React.FC = () => {
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left: Active Sections List */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <div className="lg:col-span-2 bg-white dark:bg-slate-900/80 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 transition-colors">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-base font-bold text-slate-900">My Active Sections</h2>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <h2 className="text-base font-bold text-slate-900 dark:text-white">My Active Sections</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 รายวิชาและกลุ่มเรียนที่รับผิดชอบการสอนในภาคการศึกษานี้
               </p>
             </div>
             <Link
               to="/teacher/courses"
-              className="text-xs font-semibold text-purple-600 hover:text-purple-700 flex items-center gap-1"
+              className="text-xs font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 flex items-center gap-1 min-h-[32px] px-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/50"
             >
               <span>จัดการกลุ่มเรียนทั้งหมด</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
             </Link>
           </div>
 
           {sections.length === 0 ? (
-            <div className="text-center py-10 border-2 border-dashed border-slate-200 rounded-xl">
-              <BookOpen className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-              <p className="text-sm font-semibold text-slate-700">ไม่มีกลุ่มเรียนที่รับผิดชอบ</p>
-              <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+            <div className="text-center py-10 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
+              <BookOpen className="w-10 h-10 text-slate-400 dark:text-slate-600 mx-auto mb-2" aria-hidden="true" />
+              <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">ไม่มีกลุ่มเรียนที่รับผิดชอบ</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
                 ยังไม่มีข้อมูลรายวิชาที่ได้รับมอบหมายการสอนในภาคการศึกษาปัจจุบัน
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-slate-100 dark:divide-slate-800">
               {sections.map((sec) => {
                 const percent = Math.round((sec.enrolledCount / sec.capacity) * 100);
                 return (
                   <div key={sec.id} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex items-start gap-3">
-                      <div className="w-11 h-11 rounded-xl bg-purple-50 border border-purple-100 font-bold text-purple-700 text-xs flex flex-col items-center justify-center shrink-0">
+                      <div className="w-11 h-11 rounded-xl bg-purple-50 dark:bg-purple-950/60 border border-purple-100 dark:border-purple-800 font-bold text-purple-700 dark:text-purple-300 text-xs flex flex-col items-center justify-center shrink-0">
                         <span>Sec</span>
                         <span className="text-sm leading-none">{sec.sectionNumber}</span>
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-sm text-slate-900">
+                          <span className="font-bold text-sm text-slate-900 dark:text-white">
                             {sec.course.courseCode}
                           </span>
                           <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[11px] font-semibold rounded-md">

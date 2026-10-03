@@ -137,113 +137,113 @@ export const AdminDashboardPage: React.FC = () => {
 
       {/* Metrics Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center shrink-0">
-            <GraduationCap className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-900/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+            <GraduationCap className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               นักศึกษาทั้งหมด
             </p>
-            <p className="text-2xl font-bold text-slate-900 mt-0.5">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">
               {overview.totalStudents} <span className="text-xs font-normal text-slate-400">คน</span>
             </p>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 text-purple-600 flex items-center justify-center shrink-0">
-            <Users className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-950/60 border border-purple-100 dark:border-purple-900/60 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
+            <Users className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               อาจารย์ผู้สอน
             </p>
-            <p className="text-2xl font-bold text-slate-900 mt-0.5">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">
               {overview.totalTeachers} <span className="text-xs font-normal text-slate-400">ท่าน</span>
             </p>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-            <BookOpen className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-100 dark:border-emerald-900/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+            <BookOpen className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               รายวิชาในหลักสูตร
             </p>
-            <p className="text-2xl font-bold text-slate-900 mt-0.5">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">
               {overview.totalCourses} <span className="text-xs font-normal text-slate-400">วิชา</span>
             </p>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center shrink-0">
-            <Building2 className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-100 dark:border-amber-900/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+            <Building2 className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               ภาควิชาทั้งหมด
             </p>
-            <p className="text-2xl font-bold text-slate-900 mt-0.5">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">
               {overview.totalDepartments} <span className="text-xs font-normal text-slate-400">ภาควิชา</span>
             </p>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
-            <Layers className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+            <Layers className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               กลุ่มเรียนเปิดสอน
             </p>
-            <p className="text-2xl font-bold text-slate-900 mt-0.5">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">
               {overview.activeSections} <span className="text-xs font-normal text-slate-400">กลุ่ม (Sec)</span>
             </p>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-rose-50 border border-rose-100 text-rose-600 flex items-center justify-center shrink-0">
-            <CheckCircle2 className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-950/60 border border-rose-100 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0">
+            <CheckCircle2 className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               การลงทะเบียนเรียน
             </p>
-            <p className="text-2xl font-bold text-slate-900 mt-0.5">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">
               {overview.activeEnrollments} <span className="text-xs font-normal text-slate-400">รายการ</span>
             </p>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 flex items-center justify-center shrink-0">
-            <ShieldCheck className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center shrink-0">
+            <ShieldCheck className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               ผู้ดูแลระบบ
             </p>
-            <p className="text-2xl font-bold text-slate-900 mt-0.5">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white mt-0.5">
               {overview.totalAdmins} <span className="text-xs font-normal text-slate-400">บัญชี</span>
             </p>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-cyan-50 border border-cyan-100 text-cyan-600 flex items-center justify-center shrink-0">
-            <Clock className="w-6 h-6" />
+        <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-colors">
+          <div className="w-12 h-12 rounded-xl bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-100 dark:border-cyan-900/60 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
+            <Clock className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               สถานะเซิร์ฟเวอร์
             </p>
-            <p className="text-2xl font-bold text-emerald-600 mt-0.5">
+            <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">
               100% <span className="text-xs font-normal text-slate-400">พร้อมใช้งาน</span>
             </p>
           </div>
@@ -254,118 +254,118 @@ export const AdminDashboardPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left: Quick Management Hub */}
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-            <h2 className="text-sm font-bold text-slate-900 mb-4">Administration Modules</h2>
+          <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 transition-colors">
+            <h2 className="text-sm font-bold text-slate-900 dark:text-white mb-4">Administration Modules</h2>
             <div className="space-y-3">
               <Link
                 to="/admin/users"
-                className="flex items-center justify-between p-3.5 bg-slate-50 hover:bg-amber-50/70 border border-slate-200 hover:border-amber-300 rounded-xl transition-all group cursor-pointer"
+                className="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/60 hover:bg-amber-50/70 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 hover:border-amber-300 dark:hover:border-amber-500/50 rounded-xl transition-all group cursor-pointer min-h-[44px] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center">
-                    <Users className="w-4 h-4" />
+                  <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 flex items-center justify-center">
+                    <Users className="w-4 h-4" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-slate-800 group-hover:text-amber-900">
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-amber-900 dark:group-hover:text-amber-300">
                       จัดการผู้ใช้งาน (Users)
                     </p>
-                    <p className="text-[11px] text-slate-500">เพิ่ม/ลบ บัญชีนักศึกษาและอาจารย์</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">เพิ่ม/ลบ บัญชีนักศึกษาและอาจารย์</p>
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-amber-700" />
+                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-amber-700 dark:group-hover:text-amber-400" aria-hidden="true" />
               </Link>
 
               <Link
                 to="/admin/courses"
-                className="flex items-center justify-between p-3.5 bg-slate-50 hover:bg-amber-50/70 border border-slate-200 hover:border-amber-300 rounded-xl transition-all group cursor-pointer"
+                className="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/60 hover:bg-amber-50/70 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 hover:border-amber-300 dark:hover:border-amber-500/50 rounded-xl transition-all group cursor-pointer min-h-[44px] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
-                    <BookOpen className="w-4 h-4" />
+                  <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 flex items-center justify-center">
+                    <BookOpen className="w-4 h-4" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-slate-800 group-hover:text-amber-900">
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-amber-900 dark:group-hover:text-amber-300">
                       หลักสูตรและรายวิชา (Courses)
                     </p>
-                    <p className="text-[11px] text-slate-500">จัดการข้อมูลรายวิชาและหน่วยกิต</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">จัดการข้อมูลรายวิชาและหน่วยกิต</p>
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-amber-700" />
+                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-amber-700 dark:group-hover:text-amber-400" aria-hidden="true" />
               </Link>
 
               <Link
                 to="/admin/sections"
-                className="flex items-center justify-between p-3.5 bg-slate-50 hover:bg-amber-50/70 border border-slate-200 hover:border-amber-300 rounded-xl transition-all group cursor-pointer"
+                className="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/60 hover:bg-amber-50/70 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 hover:border-amber-300 dark:hover:border-amber-500/50 rounded-xl transition-all group cursor-pointer min-h-[44px] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center">
-                    <Layers className="w-4 h-4" />
+                  <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-950/80 text-purple-700 dark:text-purple-300 flex items-center justify-center">
+                    <Layers className="w-4 h-4" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-slate-800 group-hover:text-amber-900">
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-amber-900 dark:group-hover:text-amber-300">
                       เปิดกลุ่มเรียน (Course Sections)
                     </p>
-                    <p className="text-[11px] text-slate-500">มอบหมายอาจารย์และห้องเรียน</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">มอบหมายอาจารย์และห้องเรียน</p>
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-amber-700" />
+                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-amber-700 dark:group-hover:text-amber-400" aria-hidden="true" />
               </Link>
 
               <Link
                 to="/admin/semesters"
-                className="flex items-center justify-between p-3.5 bg-slate-50 hover:bg-amber-50/70 border border-slate-200 hover:border-amber-300 rounded-xl transition-all group cursor-pointer"
+                className="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/60 hover:bg-amber-50/70 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 hover:border-amber-300 dark:hover:border-amber-500/50 rounded-xl transition-all group cursor-pointer min-h-[44px] focus:outline-none focus:ring-2 focus:ring-amber-500/50"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center">
-                    <Calendar className="w-4 h-4" />
+                  <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 flex items-center justify-center">
+                    <Calendar className="w-4 h-4" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-slate-800 group-hover:text-amber-900">
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-amber-900 dark:group-hover:text-amber-300">
                       ภาคการศึกษา (Semesters)
                     </p>
-                    <p className="text-[11px] text-slate-500">เปิด-ปิด ช่วงเวลาลงทะเบียน</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">เปิด-ปิด ช่วงเวลาลงทะเบียน</p>
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-amber-700" />
+                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-amber-700 dark:group-hover:text-amber-400" aria-hidden="true" />
               </Link>
             </div>
           </div>
         </div>
 
         {/* Right: Recent Audit Logs Table */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <div className="lg:col-span-2 bg-white dark:bg-slate-900/80 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 transition-colors">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-base font-bold text-slate-900">Recent System Audit Logs</h2>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <h2 className="text-base font-bold text-slate-900 dark:text-white">Recent System Audit Logs</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 ประวัติเหตุการณ์สำคัญในระบบที่มีการบันทึกไว้ล่าสุด
               </p>
             </div>
             <Link
               to="/admin/audit-logs"
-              className="text-xs font-semibold text-amber-700 hover:text-amber-800 flex items-center gap-1"
+              className="text-xs font-semibold text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 flex items-center gap-1 min-h-[32px] px-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/50"
             >
               <span>ดูประวัติทั้งหมด</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
             </Link>
           </div>
 
-          <div className="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+          <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-x-auto shadow-sm">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 uppercase tracking-wider font-semibold border-b border-slate-200 dark:border-slate-800">
                 <tr>
-                  <th className="px-3.5 py-2.5">เวลาบันทึก</th>
-                  <th className="px-3.5 py-2.5">การกระทำ (Action)</th>
-                  <th className="px-3.5 py-2.5">เป้าหมาย (Entity)</th>
-                  <th className="px-3.5 py-2.5">ผู้ใช้งาน</th>
-                  <th className="px-3.5 py-2.5">IP Address</th>
+                  <th scope="col" className="px-3.5 py-2.5">เวลาบันทึก</th>
+                  <th scope="col" className="px-3.5 py-2.5">การกระทำ (Action)</th>
+                  <th scope="col" className="px-3.5 py-2.5">เป้าหมาย (Entity)</th>
+                  <th scope="col" className="px-3.5 py-2.5">ผู้ใช้งาน</th>
+                  <th scope="col" className="px-3.5 py-2.5">IP Address</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {recentLogs && recentLogs.length > 0 ? (
                   recentLogs.map((log) => (
-                    <tr key={log.id} className="hover:bg-slate-50/70">
-                      <td className="px-3.5 py-2.5 text-slate-500 font-mono text-[11px]">
+                    <tr key={log.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
+                      <td className="px-3.5 py-2.5 text-slate-500 dark:text-slate-400 font-mono text-[11px]">
                         {new Date(log.createdAt).toLocaleTimeString('th-TH', {
                           hour: '2-digit',
                           minute: '2-digit',
@@ -373,24 +373,24 @@ export const AdminDashboardPage: React.FC = () => {
                         })}
                       </td>
                       <td className="px-3.5 py-2.5">
-                        <span className="font-mono font-bold text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-800">
+                        <span className="font-mono font-bold text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
                           {log.action}
                         </span>
                       </td>
-                      <td className="px-3.5 py-2.5 text-slate-600 font-medium">
+                      <td className="px-3.5 py-2.5 text-slate-600 dark:text-slate-300 font-medium">
                         {log.entity}
                       </td>
-                      <td className="px-3.5 py-2.5 text-slate-700 font-mono text-[11px]">
+                      <td className="px-3.5 py-2.5 text-slate-700 dark:text-slate-300 font-mono text-[11px]">
                         {log.user?.email || 'System'}
                       </td>
-                      <td className="px-3.5 py-2.5 text-slate-400 font-mono text-[11px]">
+                      <td className="px-3.5 py-2.5 text-slate-400 dark:text-slate-500 font-mono text-[11px]">
                         {log.ipAddress || '-'}
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={5} className="py-8 text-center text-slate-400 text-xs">
+                    <td colSpan={5} className="py-8 text-center text-slate-400 dark:text-slate-500 text-xs">
                       ยังไม่มีบันทึกประวัติเหตุการณ์
                     </td>
                   </tr>
